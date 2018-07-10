@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="member">
+
+  <select id="selectList" resultType="hanriver.domain.Member">
+    select mno no, id, email, tel from han_member
+  </select>
+  
+  <select id="selectOne" resultType="hanriver.domain.Member" parameterType="java.lang.String">
+    select mno no, id, email, tel from han_member where id=#{value}
+  </select>
+  
+  <insert id="insert" parameterType="hanriver.domain.Member">
+    insert into han_member(id,email,pwd,tel) values(#{id},#{email},password(#{password}),#{tel})
+  </insert>
+  
+  <update id="update" parameterType="hanriver.domain.Member">
+    update han_member set email=#{email}, pwd=password(#{password}), tel=#{tel} where id=#{id}
+  </update>
+  
+  <delete id="delete" parameterType="java.lang.String">
+    delete from han_member where id=#{value}
+  </delete>
+  
+</mapper>

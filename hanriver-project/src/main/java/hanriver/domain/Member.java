@@ -1,67 +1,40 @@
 package hanriver.domain;
 
-import java.sql.Date;
-
 public class Member {
+    private int no;
+    private String id;
+    private String email;
+    private String password;
+    private String tel;
     
-    protected int no;
-    protected String name;
-    protected String email;
-    protected String password;
-    protected Date createdDate;
-    
-    public Member() {}
-    
-    public Member(int no, String name, String email) {
-        this.no = no;
-        this.name = name;
-        this.email = email;
-    }
-
-    @Override
-    public String toString() {
-        return "Member [no=" + no + ", name=" + name + ", email=" + email + ", password=" + password + ", createdDate="
-                + createdDate + "]";
-    }
-
     public int getNo() {
         return no;
     }
-
     public void setNo(int no) {
         this.no = no;
     }
-
-    public Date getCreatedDate() {
-        return createdDate;
+    public String getTel() {
+        return tel;
     }
-
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
+    public void setTel(String tel) {
+        this.tel = tel;
     }
-
-    public String getName() {
-        return name;
+    public String getId() {
+        return id;
     }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setId(String id) {
+        this.id = id;
     }
-
     public String getEmail() {
         return email;
     }
-
     public void setEmail(String email) {
         this.email = email;
     }
-
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
-    
 }

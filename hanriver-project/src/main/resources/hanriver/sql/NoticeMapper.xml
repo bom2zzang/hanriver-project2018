@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="notice">
+
+  <select id="selectList" resultType="hanriver.domain.Notice">
+    select nno no, titl title, cont cotents, cdt date from han_notice
+  </select>
+  
+  <select id="selectOne" resultType="hanriver.domain.Notice" parameterType="java.lang.String">
+    select nno no, titl title, cont contents, cdt date from han_notice where nno=#{value}
+  </select>
+  
+  <insert id="insert" parameterType="hanriver.domain.Notice">
+    insert into han_notice(titl,cont,cdt) values(#{title},#{contents},now())
+  </insert>
+  
+  <update id="update" parameterType="hanriver.domain.Notice">
+    update han_notice set titl=#{title}, cont=#{contents}, cdt=now() where nno=#{no}
+  </update>
+  
+  <delete id="delete" parameterType="java.lang.String">
+    delete from han_notice where nno=#{value}
+  </delete>
+  
+</mapper>
