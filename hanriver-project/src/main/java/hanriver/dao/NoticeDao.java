@@ -1,6 +1,7 @@
 package hanriver.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -15,9 +16,9 @@ public class NoticeDao {
         this.sqlSessionFactory = sqlSessionFactory;
     }
     
-    public List<Notice> selectList() throws Exception {
+    public List<Notice> selectList(Map<String, Object> params) throws Exception {
         try(SqlSession sqlSession = sqlSessionFactory.openSession()) {
-            return sqlSession.selectList("notice.selectList");
+            return sqlSession.selectList("notice.selectList", params);
         }
     }
     

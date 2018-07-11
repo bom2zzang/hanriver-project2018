@@ -3,24 +3,33 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="member">
-
-  <select id="selectList" resultType="hanriver.domain.Member">
-    select mno no, id, email, tel from han_member
+  <resultMap type="Member" id="MemberMap">
+    <id column="mno" property="no"/>
+    <result column="id" property="id"/>
+    <result column="email" property="email"/>
+    <result column="pwd" property="password"/>
+    <result column="tel" property="tel"/>
+  </resultMap>
+  <select id="selectList" resultMap="MemberMap" parameterType="map">
+    select mno, id, email, tel from han_member
+    <if test="startIndex != null and pageSize != null">
+        limit #{startIndex}, #{pageSize}
+    </if>
   </select>
   
-  <select id="selectOne" resultType="hanriver.domain.Member" parameterType="java.lang.String">
-    select mno no, id, email, tel from han_member where id=#{value}
+  <select id="selectOne" resultMap="MemberMap" parameterType="string">
+    select mno, id, email, tel from han_member where id=#{value}
   </select>
   
-  <insert id="insert" parameterType="hanriver.domain.Member">
+  <insert id="insert" parameterType="Member">
     insert into han_member(id,email,pwd,tel) values(#{id},#{email},password(#{password}),#{tel})
   </insert>
   
-  <update id="update" parameterType="hanriver.domain.Member">
+  <update id="update" parameterType="Member">
     update han_member set email=#{email}, pwd=password(#{password}), tel=#{tel} where id=#{id}
   </update>
   
-  <delete id="delete" parameterType="java.lang.String">
+  <delete id="delete" parameterType="string">
     delete from han_member where id=#{value}
   </delete>
   

@@ -20,17 +20,19 @@ public class NoticeAddServlet extends HttpServlet {
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         try {   
             Notice notice = new Notice();
             notice.setTitle(request.getParameter("title"));
             notice.setContents(request.getParameter("contents"));
             ((NoticeDao)getServletContext().getAttribute("noticeDao")).insert(notice);
-            response.sendRedirect("list");
+            request.setAttribute("view", "redirect:list");
         } catch (Exception e) {
             request.setAttribute("error", e);
-            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
-            rd.forward(request, response);
         }
+    }
+    
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setAttribute("view", "/notice/form.jsp");
     }
 }

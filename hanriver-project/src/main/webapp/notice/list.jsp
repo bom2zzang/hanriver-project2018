@@ -9,7 +9,7 @@
 </head>
 <body>
 <h1>게시판 목록2</h1>
-<p><a href='form.html'>새 게시글</a></p>
+<p><a href='add'>새 게시글</a></p>
 <table border='1'>
 <tr>
     <th>번호</th><th>제목</th><th>날짜</th>

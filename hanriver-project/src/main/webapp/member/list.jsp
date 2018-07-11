@@ -9,7 +9,7 @@
 </head>
 <body>
 <h1>멤버 목록2</h1>
-<p><a href='form.html'>새회원</a></p>
+<p><a href='add'>새회원</a></p>
 <table border='1'>
 <tr>
     <th>번호</th><th>아이디</th><th>이메일</th><th>전화번호</th>

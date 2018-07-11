@@ -26,15 +26,12 @@ public class NoticeUpdateServlet extends HttpServlet {
             notice.setNo(Integer.parseInt(request.getParameter("no")));
             
             if (((NoticeDao)getServletContext().getAttribute("noticeDao")).update(notice) == 0) {
-                RequestDispatcher rd = request.getRequestDispatcher("/notice/updatefail.jsp");
-                rd.forward(request, response);
+                request.setAttribute("view", "/notice/updatefail.jsp");
             } else {
-                response.sendRedirect("list");
+                request.setAttribute("view", "redirect:list");
             }
         } catch (Exception e) {
             request.setAttribute("error", e);
-            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
-            rd.forward(request, response);
         }
     }
 }

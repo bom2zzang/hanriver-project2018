@@ -25,11 +25,9 @@ public class NoticeDeleteServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             ((NoticeDao)getServletContext().getAttribute("noticeDao")).delete(request.getParameter("no"));
-            response.sendRedirect("list");
+            request.setAttribute("view", "redirect:list");
         } catch (Exception e) {
             request.setAttribute("error", e);
-            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
-            rd.forward(request, response);
         }
     }
 }

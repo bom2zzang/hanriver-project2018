@@ -24,12 +24,9 @@ public class NoticeViewServlet extends HttpServlet {
         try {
             Notice notice = ((NoticeDao)getServletContext().getAttribute("noticeDao")).selectOne(request.getParameter("no"));
             request.setAttribute("notice", notice);
-            RequestDispatcher rd = request.getRequestDispatcher("/notice/view.jsp");
-            rd.include(request, response);
+            request.setAttribute("view", "/notice/view.jsp");
         } catch (Exception e) {
             request.setAttribute("error", e);
-            RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
-            rd.forward(request, response);
         }
     }
 }
