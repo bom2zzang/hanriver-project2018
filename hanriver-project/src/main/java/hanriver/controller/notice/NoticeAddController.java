@@ -3,21 +3,32 @@ package hanriver.controller.notice;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import hanriver.controller.PageController;
+import hanriver.annotation.Autowired;
+import hanriver.annotation.Controller;
+import hanriver.annotation.RequestMapping;
 import hanriver.dao.NoticeDao;
 import hanriver.domain.Notice;
 
-
-public class NoticeAddController implements PageController {
+@Controller("/notice/add")
+public class NoticeAddController {
     
     NoticeDao noticeDao;
     
+    
+    
+    public NoticeAddController() {}
+
     public NoticeAddController(NoticeDao noticeDao) {
         this.noticeDao = noticeDao;
     }
+    
+    @Autowired
+    public void setNoticeDao(NoticeDao noticeDao) {
+        this.noticeDao = noticeDao;
+    }
 
-    @Override
-    public String service(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    @RequestMapping
+    public String add(HttpServletRequest request, HttpServletResponse response) throws Exception {
         if (request.getMethod().equals("GET")) {
             return "/notice/form.jsp";
         }

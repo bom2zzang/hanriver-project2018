@@ -3,20 +3,31 @@ package hanriver.controller.member;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import hanriver.controller.PageController;
+import hanriver.annotation.Autowired;
+import hanriver.annotation.Controller;
+import hanriver.annotation.RequestMapping;
 import hanriver.dao.MemberDao;
 
-
-public class MemberDeleteController implements PageController {
+@Controller("/member/delete")
+public class MemberDeleteController {
     
     MemberDao memberDao;
     
+    
+    
+    public MemberDeleteController() {}
+
     public MemberDeleteController(MemberDao memberDao) {
         this.memberDao = memberDao;
     }
+    
+    @Autowired
+    public void setMemberDao(MemberDao memberDao) {
+        this.memberDao = memberDao;
+    }
 
-    @Override
-    public String service(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    @RequestMapping
+    public String delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
         memberDao.delete(request.getParameter("id"));
         return "reidirect:list";
     }

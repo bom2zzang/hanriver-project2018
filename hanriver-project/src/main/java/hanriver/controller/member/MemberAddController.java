@@ -1,26 +1,31 @@
 package hanriver.controller.member;
 
-import java.io.IOException;
-
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import hanriver.controller.PageController;
+import hanriver.annotation.Autowired;
+import hanriver.annotation.Controller;
+import hanriver.annotation.RequestMapping;
 import hanriver.dao.MemberDao;
 import hanriver.domain.Member;
 
-
-public class MemberAddController implements PageController {
+@Controller("/member/add")
+public class MemberAddController {
     
     MemberDao memberDao;
     
+    
+    public MemberAddController() {}
+
     public MemberAddController(MemberDao memberDao) {
         this.memberDao = memberDao;
     }
-
-    @Override
-    public String service(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    @Autowired
+    public void setMemberDao(MemberDao memberDao) {
+        this.memberDao = memberDao;
+    }
+    @RequestMapping
+    public String add(HttpServletRequest request, HttpServletResponse response) throws Exception {
         if (request.getMethod().equals("GET")) {
             return "/member/form.jsp";
         } else {

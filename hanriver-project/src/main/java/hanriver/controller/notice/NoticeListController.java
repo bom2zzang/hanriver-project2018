@@ -5,21 +5,31 @@ import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import hanriver.controller.PageController;
+import hanriver.annotation.Autowired;
+import hanriver.annotation.Controller;
+import hanriver.annotation.RequestMapping;
 import hanriver.dao.NoticeDao;
 
-
-public class NoticeListController implements PageController {
+@Controller("/notice/list")
+public class NoticeListController {
     
     NoticeDao noticeDao;
     
+    
+    
+    public NoticeListController() {}
+
     public NoticeListController(NoticeDao noticeDao) {
         this.noticeDao = noticeDao;
     }
+    
+    @Autowired
+    public void setNoticeDao(NoticeDao noticeDao) {
+        this.noticeDao = noticeDao;
+    }
 
-
-    @Override
-    public String service(HttpServletRequest request, HttpServletResponse response) throws Exception {
+    @RequestMapping
+    public String list(HttpServletRequest request, HttpServletResponse response) throws Exception {
         HashMap<String, Object> params = new HashMap<>();
         if (request.getParameter("page") != null && request.getParameter("size") != null) {
             int page = Integer.parseInt(request.getParameter("page"));

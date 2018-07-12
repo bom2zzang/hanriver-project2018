@@ -1,6 +1,7 @@
 package hanriver.servlet;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,7 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import hanriver.controller.PageController;
+import hanriver.annotation.RequestMapping;
+import hanriver.context.ApplicationContext;
 
 
 @SuppressWarnings("serial")
@@ -20,11 +22,14 @@ public class DispatcherServlet extends HttpServlet {
     protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String pathInfo = request.getPathInfo();
         response.setContentType("text/html;charset=UTF-8");
-        PageController pageController = (PageController)getServletContext().getAttribute(pathInfo);
-        String view;
+        ApplicationContext iocContainer = (ApplicationContext)getServletContext().getAttribute("iocContainer");
         try {
+            Object pageController = iocContainer.getBean(pathInfo);
             if (pageController == null) throw new Exception("해당 URL에 대해 서비스를 처리할 수 없습니다.");
-            view = pageController.service(request, response);
+            Method requestHandler = getRequestHandler(pageController.getClass());
+            if (requestHandler == null)
+                throw new Exception("요청 핸들러를 찾지 못했습니다.");
+            String view = (String) requestHandler.invoke(pageController, request, response);
             if (view.startsWith("redirect:")) {
                 response.sendRedirect(view.substring(9));
             } else {
@@ -36,5 +41,15 @@ public class DispatcherServlet extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("/error.jsp");
             rd.forward(request, response);
         }
+    }
+
+    private Method getRequestHandler(Class<?> clazz) {
+        Method[] methods = clazz.getMethods();
+        for (Method m : methods) {
+            RequestMapping anno = m.getAnnotation(RequestMapping.class);
+            if (anno != null)
+                return m;
+        }
+        return null;
     }
 }
