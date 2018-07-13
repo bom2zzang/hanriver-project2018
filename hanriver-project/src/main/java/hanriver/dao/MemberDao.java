@@ -5,9 +5,9 @@ import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
-import hanriver.annotation.Autowired;
-import hanriver.annotation.Repository;
 import hanriver.domain.Member;
 
 @Repository
@@ -21,12 +21,11 @@ public class MemberDao {
         this.sqlSessionFactory = sqlSessionFactory;
     }
     
-    
     @Autowired
     public void setSqlSessionFactory(SqlSessionFactory sqlSessionFactory) {
         this.sqlSessionFactory = sqlSessionFactory;
     }
-
+    
     public List<Member> selectList(Map<String, Object> params) throws Exception {
         try (SqlSession sqlSession = sqlSessionFactory.openSession()) {
             return sqlSession.selectList("member.selectList", params);

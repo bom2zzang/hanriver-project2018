@@ -3,8 +3,9 @@ package hanriver.controller.member;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import hanriver.annotation.Autowired;
-import hanriver.annotation.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
 import hanriver.annotation.RequestMapping;
 import hanriver.dao.MemberDao;
 import hanriver.domain.Member;
@@ -12,9 +13,8 @@ import hanriver.domain.Member;
 @Controller("/member/update")
 public class MemberUpdateController {
     
+    
     MemberDao memberDao;
-    
-    
     
     public MemberUpdateController() {}
 
@@ -26,7 +26,7 @@ public class MemberUpdateController {
     public void setMemberDao(MemberDao memberDao) {
         this.memberDao = memberDao;
     }
-
+    
     @RequestMapping
     public String update(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Member member = new Member();

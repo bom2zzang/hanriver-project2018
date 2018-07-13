@@ -5,8 +5,9 @@ import java.util.HashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import hanriver.annotation.Autowired;
-import hanriver.annotation.Controller;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+
 import hanriver.annotation.RequestMapping;
 import hanriver.dao.MemberDao;
 
