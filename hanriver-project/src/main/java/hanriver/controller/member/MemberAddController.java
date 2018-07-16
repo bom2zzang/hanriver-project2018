@@ -5,12 +5,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import hanriver.annotation.RequestMapping;
 import hanriver.dao.MemberDao;
 import hanriver.domain.Member;
 
-@Controller("/member/add")
+@Controller
 public class MemberAddController {
     
     
@@ -28,10 +28,10 @@ public class MemberAddController {
         this.memberDao = memberDao;
     }
     
-    @RequestMapping
+    @RequestMapping("/member/add")
     public String add(HttpServletRequest request, HttpServletResponse response) throws Exception {
         if (request.getMethod().equals("GET")) {
-            return "/member/form.jsp";
+            return "member/form";
         } else {
             
         Member member = new Member();

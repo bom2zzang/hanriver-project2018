@@ -5,12 +5,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import hanriver.annotation.RequestMapping;
 import hanriver.dao.MemberDao;
 import hanriver.domain.Member;
 
-@Controller("/member/view")
+@Controller
 public class MemberViewController {
     
     
@@ -28,11 +28,11 @@ public class MemberViewController {
         this.memberDao = memberDao;
     }
     
-    @RequestMapping
+    @RequestMapping("/member/view")
     public String view(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Member member = memberDao.selectOne(request.getParameter("id"));
         request.setAttribute("member", member);
-        return "/member/view.jsp";
+        return "member/view";
     }
     
 }

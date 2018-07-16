@@ -5,12 +5,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import hanriver.annotation.RequestMapping;
 import hanriver.dao.NoticeDao;
 import hanriver.domain.Notice;
 
-@Controller("/notice/update")
+@Controller
 public class NoticeUpdateController {
     
     @Autowired
@@ -22,7 +22,7 @@ public class NoticeUpdateController {
         this.noticeDao = noticeDao;
     }
     
-    @RequestMapping
+    @RequestMapping("/notice/update")
     public String update(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Notice notice = new Notice();
         notice.setTitle(request.getParameter("title"));
@@ -30,7 +30,7 @@ public class NoticeUpdateController {
         notice.setNo(Integer.parseInt(request.getParameter("no")));
         
         if (noticeDao.update(notice) == 0) {
-            return "/notice/updatefail.jsp";
+            return "notice/updatefail";
         } else {
             return "redirect:list";
         }

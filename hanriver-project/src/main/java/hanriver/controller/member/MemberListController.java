@@ -7,11 +7,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import hanriver.annotation.RequestMapping;
 import hanriver.dao.MemberDao;
 
-@Controller("/member/list")
+@Controller
 public class MemberListController {
     
     MemberDao memberDao;
@@ -26,7 +26,7 @@ public class MemberListController {
         this.memberDao = memberDao;
     }
 
-    @RequestMapping
+    @RequestMapping("/member/list")
     public String list(HttpServletRequest request, HttpServletResponse response) throws Exception {
         HashMap<String, Object> params = new HashMap<>();
         if (request.getParameter("page") != null && request.getParameter("size") != null) {
@@ -36,6 +36,6 @@ public class MemberListController {
             params.put("pageSize", size);
         }
         request.setAttribute("list", memberDao.selectList(params));
-        return "/member/list.jsp";
+        return "member/list";
     }
 }

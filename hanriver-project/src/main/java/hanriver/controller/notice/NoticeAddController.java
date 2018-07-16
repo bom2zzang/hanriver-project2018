@@ -5,12 +5,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import hanriver.annotation.RequestMapping;
 import hanriver.dao.NoticeDao;
 import hanriver.domain.Notice;
 
-@Controller("/notice/add")
+@Controller
 public class NoticeAddController {
     
     @Autowired
@@ -25,10 +25,10 @@ public class NoticeAddController {
     }
     
 
-    @RequestMapping
+    @RequestMapping("/notice/add")
     public String add(HttpServletRequest request, HttpServletResponse response) throws Exception {
         if (request.getMethod().equals("GET")) {
-            return "/notice/form.jsp";
+            return "notice/form";
         }
         Notice notice = new Notice();
         notice.setTitle(request.getParameter("title"));

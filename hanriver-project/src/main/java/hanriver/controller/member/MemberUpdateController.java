@@ -5,12 +5,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import hanriver.annotation.RequestMapping;
 import hanriver.dao.MemberDao;
 import hanriver.domain.Member;
 
-@Controller("/member/update")
+@Controller
 public class MemberUpdateController {
     
     
@@ -27,7 +27,7 @@ public class MemberUpdateController {
         this.memberDao = memberDao;
     }
     
-    @RequestMapping
+    @RequestMapping("/member/update")
     public String update(HttpServletRequest request, HttpServletResponse response) throws Exception {
         Member member = new Member();
         
@@ -37,7 +37,7 @@ public class MemberUpdateController {
         member.setTel(request.getParameter("tel"));
         
         if (memberDao.update(member) == 0) {
-            return "/member/updatefail.jsp";
+            return "member/updatefail";
         } else {
             return "redirect:list";
         }

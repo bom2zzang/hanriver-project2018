@@ -5,11 +5,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import hanriver.annotation.RequestMapping;
 import hanriver.dao.NoticeDao;
 
-@Controller("/notice/delete")
+@Controller
 public class NoticeDeleteController {
     
     @Autowired
@@ -22,7 +22,7 @@ public class NoticeDeleteController {
     }
     
 
-    @RequestMapping
+    @RequestMapping("/notice/delete")
     public String delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
         noticeDao.delete(request.getParameter("no"));
         return "redirect:list";

@@ -7,17 +7,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import hanriver.annotation.RequestMapping;
 import hanriver.dao.NoticeDao;
 
-@Controller("/notice/list")
+@Controller
 public class NoticeListController {
     
     @Autowired
     NoticeDao noticeDao;
-    
-    
     
     public NoticeListController() {}
 
@@ -26,7 +24,7 @@ public class NoticeListController {
     }
     
 
-    @RequestMapping
+    @RequestMapping("/notice/list")
     public String list(HttpServletRequest request, HttpServletResponse response) throws Exception {
         HashMap<String, Object> params = new HashMap<>();
         if (request.getParameter("page") != null && request.getParameter("size") != null) {
@@ -36,6 +34,6 @@ public class NoticeListController {
             params.put("pageSize", size);
         }
             request.setAttribute("list", noticeDao.selectList(params));
-            return "/notice/list.jsp";
+            return "notice/list";
     }
 }

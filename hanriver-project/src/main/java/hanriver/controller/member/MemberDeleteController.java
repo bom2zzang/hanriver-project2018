@@ -5,11 +5,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import hanriver.annotation.RequestMapping;
 import hanriver.dao.MemberDao;
 
-@Controller("/member/delete")
+@Controller
 public class MemberDeleteController {
     
     MemberDao memberDao;
@@ -26,7 +26,7 @@ public class MemberDeleteController {
     }
     
 
-    @RequestMapping
+    @RequestMapping("/member/delete")
     public String delete(HttpServletRequest request, HttpServletResponse response) throws Exception {
         memberDao.delete(request.getParameter("id"));
         return "reidirect:list";
