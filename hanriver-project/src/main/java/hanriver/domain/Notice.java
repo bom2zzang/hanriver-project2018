@@ -1,10 +1,12 @@
 package hanriver.domain;
 
+import java.sql.Date;
+
 public class Notice {
     private int no;
     private String title;
     private String contents;
-    private String date;
+    private Date date;
     
     public int getNo() {
         return no;
@@ -25,10 +27,10 @@ public class Notice {
     public void setContents(String contents) {
         this.contents = contents;
     }
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 }
