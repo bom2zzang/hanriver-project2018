@@ -1,11 +1,15 @@
 package hanriver.controller;
 
 import java.util.HashMap;
-import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import hanriver.dao.NoticeDao;
 import hanriver.domain.Notice;
@@ -14,28 +18,22 @@ import hanriver.domain.Notice;
 @RequestMapping("/notice")
 public class NoticeController {
     
-    NoticeDao noticeDao;
-    
-    public NoticeController(NoticeDao noticeDao) {
-        this.noticeDao = noticeDao;
-    }
-    
+    @Autowired NoticeDao noticeDao;
 
-    @RequestMapping(value="add", method=RequestMethod.GET)
-    public String add() {
-        return "notice/form";
+    @GetMapping("form")
+    public void form() {
     }
     
-    @RequestMapping(value="add", method=RequestMethod.POST)
+    @PostMapping("add")
     public String add(Notice notice) {
         noticeDao.insert(notice);
         return "redirect:list";
     }
     
-    @RequestMapping("view")
-    public String view(String no, Map<String, Object> map) throws Exception {
+    @RequestMapping("view/{no}")
+    public String view(@PathVariable String no, Model model) throws Exception {
         Notice notice = noticeDao.selectOne(no);
-        map.put("notice", notice);
+        model.addAttribute("notice", notice);
         return "notice/view";
     }
     
@@ -49,13 +47,15 @@ public class NoticeController {
     }
     
     @RequestMapping("list")
-    public String list(String page, String size, Map<String, Object> map) throws Exception {
+    public String list(
+            @RequestParam(defaultValue="1") int page,
+            @RequestParam(defaultValue="10")int size, Model model) throws Exception {
+        if (page < 1) page = 1;
+        if (size < 1 || size > 20) page = 10;
         HashMap<String, Object> params = new HashMap<>();
-        if (page != null && size != null) {
-            params.put("startIndex", (Integer.parseInt(page) - 1) * Integer.parseInt(size));
-            params.put("pageSize", Integer.parseInt(size));
-        }
-        map.put("list", noticeDao.selectList(params));
+        params.put("startIndex", (page - 1) * size);
+        params.put("pageSize", size);
+        model.addAttribute("list", noticeDao.selectList(params));
         return "notice/list";
     }
     

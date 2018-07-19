@@ -1,14 +1,15 @@
 package hanriver.controller;
 
 import java.util.HashMap;
-import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import hanriver.dao.MemberDao;
 import hanriver.domain.Member;
@@ -17,17 +18,12 @@ import hanriver.domain.Member;
 @RequestMapping("/member")
 public class MemberController {
     
-    MemberDao memberDao;
+    @Autowired MemberDao memberDao;
     
-    public MemberController(MemberDao memberDao) {
-        this.memberDao = memberDao;
+    @GetMapping("form")
+    public void add() {
     }
-    
-    @RequestMapping(value="add", method=RequestMethod.GET)
-    public String add() {
-        return "member/form";
-    }
-    @RequestMapping(value="add", method=RequestMethod.POST)
+    @PostMapping("add")
     public String add(Member member) throws Exception {
         memberDao.insert(member);
         return "redirect:list";
@@ -40,20 +36,22 @@ public class MemberController {
     }
     
     @RequestMapping("list")
-    public String list(String page, String size, Map<String, Object> map) throws Exception {
+    public String list(
+            @RequestParam(defaultValue="1")int page,
+            @RequestParam(defaultValue="10")int size, Model model) throws Exception {
+        if (page < 1a) page = 1;
+        if (size < 1 || size > 20) size = 10;
         HashMap<String, Object> params = new HashMap<>();
-        if (page != null && size != null) {
-            params.put("startIndex", (Integer.parseInt(page) - 1) * Integer.parseInt(size));
-            params.put("pageSize", Integer.parseInt(size));
-        }
-        map.put("list", memberDao.selectList(params));
+        params.put("startIndex", (page - 1) * size);
+        params.put("pageSize", size);
+        model.addAttribute("list", memberDao.selectList(params));
         return "member/list";
     }
     
-    @RequestMapping("view")
-    public String view(String id, Map<String, Object> map) throws Exception {
+    @RequestMapping("view/{id}")
+    public String view(@PathVariable String id, Model model) throws Exception {
         Member member = memberDao.selectOne(id);
-        map.put("member", member);
+        model.addAttribute("member", member);
         return "member/view";
     }
     
@@ -66,5 +64,4 @@ public class MemberController {
             return "redirect:list";
         }
     }
-    
 }

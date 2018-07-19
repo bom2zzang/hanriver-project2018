@@ -9,14 +9,14 @@
 </head>
 <body>
 <h1>멤버 목록2</h1>
-<p><a href='add'>새회원</a></p>
+<p><a href='form'>새회원</a></p>
 <table border='1'>
 <tr>
     <th>번호</th><th>아이디</th><th>이메일</th><th>전화번호</th>
 </tr>
 <c:forEach items="${list}" var="member">
 <tr>
-    <td>${member.no}</td><td><a href='view?id=${member.id}'>${member.id}</a></td><td>${member.email}</td><td>${member.tel}</td>
+    <td>${member.no}</td><td><a href='view/${member.id}'>${member.id}</a></td><td>${member.email}</td><td>${member.tel}</td>
 </tr>
 </c:forEach>
 </table>

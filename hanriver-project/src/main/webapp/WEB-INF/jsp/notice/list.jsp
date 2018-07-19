@@ -9,14 +9,14 @@
 </head>
 <body>
 <h1>게시판 목록2</h1>
-<p><a href='add'>새 게시글</a></p>
+<p><a href='form'>새 게시글</a></p>
 <table border='1'>
 <tr>
     <th>번호</th><th>제목</th><th>날짜</th>
 </tr>
 <c:forEach items="${list}" var="notice">
 <tr>
-    <td>${notice.no}</td><td><a href='view?no=${notice.no}'>${notice.title}</a></td><td>${notice.date}</td>
+    <td>${notice.no}</td><td><a href='view/${notice.no}'>${notice.title}</a></td><td>${notice.date}</td>
 </tr>
 </c:forEach>
 </table>
