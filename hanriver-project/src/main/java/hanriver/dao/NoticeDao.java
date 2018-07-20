@@ -16,4 +16,6 @@ public interface NoticeDao {
     public int update(Notice notice);
     
     public int delete(String no);
+
+    public int countAll();
 }

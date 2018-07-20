@@ -22,6 +22,10 @@
     select nno, titl, cont, cdt from han_notice where nno=#{value}
   </select>
   
+  <select id="countAll" resultType="int">
+    select count(*) from han_notice
+  </select>
+  
   <insert id="insert" parameterType="Notice">
     insert into han_notice(titl,cont,cdt) values(#{title},#{contents},now())
   </insert>

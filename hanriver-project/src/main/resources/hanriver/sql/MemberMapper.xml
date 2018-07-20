@@ -21,6 +21,10 @@
     select mno, id, email, tel from han_member where id=#{value}
   </select>
   
+  <select id="countAll" resultType="int">
+    select count(*) from han_member
+  </select>
+  
   <insert id="insert" parameterType="Member">
     insert into han_member(id,email,pwd,tel) values(#{id},#{email},password(#{password}),#{tel})
   </insert>
