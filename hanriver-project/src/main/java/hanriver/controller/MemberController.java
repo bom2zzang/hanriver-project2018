@@ -19,7 +19,7 @@ public class MemberController {
     @Autowired MemberService memberService;
     
     @GetMapping("form")
-    public void add() {
+    public void form() {
     }
     @PostMapping("add")
     public String add(Member member) throws Exception {
