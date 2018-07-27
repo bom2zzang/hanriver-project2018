@@ -35,7 +35,7 @@
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value></param-value>
+            <param-value>classpath:hanriver/config/app-servlet.xml</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
@@ -43,6 +43,21 @@
     <servlet-mapping>
         <servlet-name>app</servlet-name>
         <url-pattern>/app/*</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>json</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:hanriver/config/json-servlet.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>json</servlet-name>
+        <url-pattern>/json/*</url-pattern>
     </servlet-mapping>
     
     <welcome-file-list>

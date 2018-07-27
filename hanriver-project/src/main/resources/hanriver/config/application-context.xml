@@ -16,10 +16,9 @@
         http://www.springframework.org/schema/aop
         http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-    <context:component-scan base-package="hanriver"/>
-    
-    <!-- Spring WebMVC 관련 애노테이션을 처리할 객체들을 등록한다. -->
-    <mvc:annotation-driven enable-matrix-variables="true"/>
+    <context:component-scan base-package="hanriver">
+        <context:exclude-filter type="regex" expression="hanriver.controller.*"/>
+    </context:component-scan>
 	<!-- 트랜잭션 관련 애노테이션을 처리할 객체들을 등록한다. -->
 	<tx:annotation-driven transaction-manager="txManager"/>
 	
@@ -63,12 +62,6 @@
     
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
       <property name="basePackage" value="hanriver.dao"/>
-    </bean>
-    
-    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-      <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
-	  <property name="prefix" value="/WEB-INF/jsp/"/>
-	  <property name="suffix" value=".jsp"/>
     </bean>
     
     <context:property-placeholder location="classpath:hanriver/config/jdbc.properties"/>
