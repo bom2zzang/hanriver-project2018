@@ -49,12 +49,18 @@ public class MemberController {
         return data;
     }
     
+    
     @RequestMapping("view/{id}")
-    public String view(@PathVariable String id, Model model) throws Exception {
+    public Object view(
+    		@PathVariable String id) throws Exception {
+        HashMap<String, Object> data = new HashMap<>();
         Member member = memberService.get(id);
-        model.addAttribute("member", member);
-        return "member/view";
+        data.put("member", member);
+        
+        return data;
     }
+    
+    
     
     @RequestMapping("update")
     public String update(Member member) throws Exception {
