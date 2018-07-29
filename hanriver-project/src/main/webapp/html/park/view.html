@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='UTF-8'>
+<title>한강공원</title>
+</head>
+<body>
+<h1>공원 상세보기</h1>
+<table id="eViewTable" border='1'>
+<form action='../update' method='post'>
+<tr><th>공원이름</th>
+    <td><input type='text' id='eName' value='' readonly></td></tr>
+<tr><th>위치</th>
+    <td><input type='text' id='eLocation'></td></tr>
+<p><button type="button" id="eListBtn">목록</button><button>변경하기</button><a href='../delete?name=ggg'>삭제하기</a></p>
+</form>
+</table>
+
+<script src="../js/common.js"></script>
+<script>
+"use strict"
+var data;
+var {name} = parseQuery(location.href);
+
+
+loadList();
+eListBtn.onclick = function() {
+	location.href = `list.html`;
+};
+function loadList() {
+	
+	var xhr = new XMLHttpRequest();
+	
+	xhr.onreadystatechange = function() {
+	    if (xhr.readyState < 4) return;
+	    if (xhr.status !== 200) {
+	        alert("서버에서 오류 발생!");
+	        return;
+	    }
+	    data = JSON.parse(xhr.responseText);
+	    console.log(data);
+	    eName.value = data.park.name;
+	    eLocation.value = data.park.location;
+	    
+	};
+	
+	xhr.open('GET', 
+	        `../../json/park/view/${name}`, 
+	        true);
+	
+	xhr.send();
+	
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='UTF-8'>
+<title>공원 목록</title>
+<body>
+<h1>공원 리스트</h1>
+<p><a href='form'>공원 추가</a></p>
+<table id='eListTable' border='1'>
+<thead>
+<tr>
+	<th>번호</th><th>공원이름</th><th>위치</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+
+<script src="../js/common.js"></script>
+<script>
+"use strict"
+var data;
+var tbody = document.querySelector('#eListTable > tbody');
+
+loadList();
+
+function loadList() {
+	var xhr = new XMLHttpRequest();
+	console.log(xhr);
+	
+	xhr.onreadystatechange = function() {
+	    if (xhr.readyState < 4) return;
+	    if (xhr.status !== 200) {
+	        alert("서버에서 오류 발생!");
+	        return;
+	    }
+	    data = JSON.parse(xhr.responseText);
+	    tbody.innerHTML = "";
+	    for (var item of data.list) {
+	    	var tr = document.createElement("tr");
+	    	tr.innerHTML = 
+	    		`<td>${item.no}</td><td><a href='#' data-id='${item.name}' onclick='clickViewLink(event)'>${item.name}</a></td>
+	    		<td>${item.location}</td>`;
+	    		tbody.appendChild(tr);
+	    }
+	    
+	};
+	
+	xhr.open('GET', 
+	        `../../json/park/list`, 
+	        true);
+	xhr.send();
+	
+}
+function clickViewLink(event) {
+    event.preventDefault();
+    var name = event.currentTarget.getAttribute('data-id');
+    location.href = `view.html?name=${name}`;
+}
+</script>
+
+
+</body>
+</head>
+</html>
