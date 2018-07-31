@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>멤버 목록2</h1>
-<p><a href='form'>새회원</a></p>
+<p><a href='view.html'>새회원</a></p>
 <table id="eListTable" border='1'>
 <thead>
 <tr>
@@ -32,63 +32,55 @@
 <script src="../js/bit.js"></script>
 <script>
 "use strict"
-var data;
 
 var {page, size} = $.parseQuery(location.href);
 
 var tbody = $('#eListTable > tbody');
-
-
+let data = null;
 
 if (size != undefined && page != undefined)
     loadList(page, size);
 else loadList(1, 3);
 
-ePrevBtn.onclick = function() {
-	
+$(ePrevBtn).click(function() {
 	loadList(data.page - 1, data.size);
-}
+});
 
-eNextBtn.onclick = function() {
-	
+$(eNextBtn).click(function() {
 	loadList(data.page + 1, data.size);
-}
+});
 
 
 function loadList(page, size) {
-    $.ajax(`../../json/member/list?page=${page}&size=${size}`, {
-        dataType: 'json',
-        success: function(result) {
+    $.getJSON('../../json/member/list', 
+        {
+            page: page,
+            size: size
+        }, function(result) {
             data = result;
-            tbody.innerHTML = "";
+            tbody.html('');
             for (var item of data.list) {
-                var tr = document.createElement("tr");
-                tr.innerHTML = 
-                    `<td>${item.no}</td><td><a href='#' data-id='${item.id}' onclick='clickViewLink(event)'>${item.id}</a></td>
-                    <td>${item.email}</td><td>${item.tel}</td>`;
-                    tbody.appendChild(tr);
+                $("<tr>").html(
+                    `<td>${item.no}</td><td><a href='#' data-id='${item.id}' class='viewLink'>${item.id}</a></td>
+                    <td>${item.email}</td><td>${item.tel}</td>`).appendTo(tbody);
             }
-            ePageNo.innerHTML = data.page;
+            $(ePageNo).html(data.page);
             if (data.page <= 1)
-                ePrevBtn.setAttribute('disabled', '');
+                $(ePrevBtn).attr('disabled', '');
             else 
-                ePrevBtn.removeAttribute('disabled');
+                $(ePrevBtn).removeAttr('disabled');
             
             if (data.page >= data.totalPage)
-                eNextBtn.setAttribute('disabled', '');
+                $(eNextBtn).attr('disabled', '');
             else
-                eNextBtn.removeAttribute('disabled');
-        },
-        error: function() {
-            alert("서버에서 오류발생!");
-        }
-    });
+                $(eNextBtn).removeAttr('disabled');
+        });
 }
-function clickViewLink(event) {
+tbody.on('click', 'a.viewLink', function(event) {
     event.preventDefault();
-    var id = event.currentTarget.getAttribute('data-id');
+    var id = $(event.target).attr('data-id');
     location.href = `view.html?id=${id}&page=${data.page}&size=${data.size}`;
-}
+});
 </script>
 
 </body>
