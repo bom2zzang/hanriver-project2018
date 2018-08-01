@@ -3,6 +3,7 @@
 <head>
 <meta charset='UTF-8'>
 <title>멤버 뷰</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 </head>
 <body>
 <h1>멤버2</h1>
@@ -22,82 +23,14 @@
 <button type="button" id="eUpdateBtn" class="viewform">변경하기</button>
 <button type="button" id="eDeleteBtn" class="viewform">삭제하기</button>
 <button type="button" id="eAddBtn" class="newform">등록하기</button>
-
 </p>
 </form>
-<script src="../js/bit.js"></script>
-<script>
-"use strict"
-var data = null;
-var {id, size, page} = $.parseQuery(location.href);
-
-if (id == undefined) {
-    $('.viewform').css('display', 'none');
-    $(eId).removeAttr("readOnly");
-} else {
-    $('.newform').css('display', 'none');
-    
-    $.getJSON(`../../json/member/view/${id}`,
-        function(data) {
-            if (data.member == null) {
-                alert('아이디가 무효합니다.');
-                local.href = 'list.html';
-                return;
-            }
-		    $(eId).val(data.member.id);
-		    $(eEmail).val(data.member.email);
-		    $(eTel).val(data.member.tel);
-    });
-}
-
-$(eListBtn).click(function() {
-    location.href = `list.html?page=${page}&size=${size}`;
-});
-
-$(eAddBtn).click(function() {
-    $.post('../../json/member/add', 
-        {
-            id: $(eId).val(), 
-            email: $(eEmail).val(), 
-            password: $(ePassword).val(),
-            tel: $(eTel).val()
-        },
-        function(data) {
-            location.href = 'list.html';
-        },
-        'json');
-});
-
-$(eUpdateBtn).click(function() {
-    $.post('../../json/member/update', {
-        id: $(eId).val(),
-        email: $(eEmail).val(),
-        password: $(ePassword).val(),
-        tel: $(eTel).val()
-    },
-    function(data) {
-        if (data.status == 'success') {
-            location.href = `list.html?page=${page}&size=${size}`;
-        } else {
-            alert('변경 오류입니다!');
-            console.log(data.error);
-        }
-    }, 'json');
-})
-
-$(eDeleteBtn).click(function() {
-    $.getJSON('../../json/member/delete',{
-        id: $(eId).val()
-    }, function(data) {
-        if (data.status == 'success') {
-            location.href = `list.html?page=${page}&size=${size}`;
-        } else {
-            alert('삭제 오류입니다!');
-        }
-    });
-});
-
-</script>
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../node_modules/popper.js/dist/umd/popper.min.js"></script>
+<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../js/jquery.hanriver.js"></script>
+<script src="../js/common.js"></script>
+<script src="view.js"></script>
 
 </body>
 </html>
