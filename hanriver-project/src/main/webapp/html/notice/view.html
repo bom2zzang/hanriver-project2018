@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset='UTF-8'>
+<title>게시판 뷰</title>
+</head>
+<body>
+<h1>게시판2</h1>
+<table border='1'>
+<form action='../update' method='post'>
+<tr><th>번호</th><td>
+    <input readonly type='text' id='eNo' readonly></td></tr>
+<tr><th>제목</th>
+    <td><input type='text' id='eTitle'></td></tr>
+<tr><th>내용</th>
+    <td><input type='text' id='eContents'></td></tr>
+<p><button type="button" id="eListBtn">목록</button><button>변경하기</button><a href='../delete?no=8'>삭제하기</a></p>
+</form>
+</table>
+<script src="../js/common.js"></script>
+<script>
+"use strict"
+var data;
+var {no, size, page} = parseQuery(location.href);
+
+loadList();
+eListBtn.onclick = function() {
+    location.href = `list.html?page=${page}&size=${size}`;
+};
+function loadList() {
+    var xhr = new XMLHttpRequest();
+    
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState < 4) return;
+        if (xhr.status !== 200) {
+            alert("서버에서 오류 발생!");
+            return;
+        }
+        data = JSON.parse(xhr.responseText);
+        console.log(data);
+        eNo.value = data.notice.no;
+        eTitle.value = data.notice.title;
+        eContents.value = data.notice.contents;
+    };
+    
+    xhr.open('GET', 
+            `../../json/notice/view/${no}`, 
+            true);
+    
+    xhr.send();
+    
+}
+</script>
+</body>
+</html>

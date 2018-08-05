@@ -3,11 +3,12 @@
 <head>
 <meta charset='UTF-8'>
 <title>멤버 뷰</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 </head>
 <body>
 <h1>멤버2</h1>
+<form>
 <table border='1'>
-<form action='../update' method='post'>
 <tr><th>아이디</th>
     <td><input readonly type='text' id='eId' value='' readonly></td></tr>
 <tr><th>암호</th>
@@ -16,49 +17,20 @@
     <td><input type='email' id='eEmail'></td></tr>
 <tr><th>전화번호</th>
     <td><input type='text' id='eTel'></td></tr>
-<p><button type="button" id="eListBtn">목록</button><button>변경하기</button><a href='../delete?id=user01'>삭제하기</a></p>
-</form>
 </table>
+<p>
+<button type="button" id="eListBtn">목록</button>
+<button type="button" id="eUpdateBtn" class="viewform">변경하기</button>
+<button type="button" id="eDeleteBtn" class="viewform">삭제하기</button>
+<button type="button" id="eAddBtn" class="newform">등록하기</button>
+</p>
+</form>
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../node_modules/popper.js/dist/umd/popper.min.js"></script>
+<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../js/jquery.hanriver.js"></script>
 <script src="../js/common.js"></script>
-<script>
-"use strict"
-var data;
-var {id, size, page} = parseQuery(location.href);
-
-
-loadList();
-eListBtn.onclick = function() {
-	location.href = `list.html?page=${page}&size=${size}`;
-};
-function loadList() {
-	var xhr = new XMLHttpRequest();
-	
-	xhr.onreadystatechange = function() {
-	    if (xhr.readyState < 4) return;
-	    if (xhr.status !== 200) {
-	        alert("서버에서 오류 발생!");
-	        return;
-	    }
-	    data = JSON.parse(xhr.responseText);
-	    console.log(data);
-	    eId.value = data.member.id;
-	    eEmail.value = data.member.email;
-	    eTel.value = data.member.tel;
-	    
-	   
-	    
-	    
-	};
-	
-	xhr.open('GET', 
-	        `../../json/member/view/${id}`, 
-	        true);
-	
-	xhr.send();
-	
-}
-
-</script>
+<script src="view.js"></script>
 
 </body>
 </html>
