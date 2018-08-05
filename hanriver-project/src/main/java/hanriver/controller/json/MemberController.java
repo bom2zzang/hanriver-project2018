@@ -24,11 +24,14 @@ public class MemberController {
     }
     @PostMapping("add")
     public Object add(Member member) throws Exception {
-        HashMap<String, Object> result = new HashMap<>();
+	        HashMap<String, Object> result = new HashMap<>();
         result.put("status", "success");
         memberService.add(member);
         return result;
     }
+    
+    
+    
     
     @RequestMapping("delete")
     public Object delete(String id) throws Exception {
