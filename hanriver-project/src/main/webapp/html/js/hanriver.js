@@ -30,7 +30,9 @@ let bit = function(value) {
 		e.removeAttribute(name);
 	}
 	
-	e.on = function(name, p2)
+	e.on = function(name, p2) {
+		e.
+	}
 	
 	return e;
 };
