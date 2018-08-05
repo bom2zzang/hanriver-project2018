@@ -16,6 +16,11 @@
 	<select id="selectOne" resultMap="ParkMap" parameterType="string">
 	select pno, name, loc from han_park where name=#{value}
 	</select>
+	
+	<select id="countAll" resultType="int">
+    select count(*) from han_park
+  	</select>
+  
 
 	<insert id="insert" parameterType="Park">
 	insert into han_park(name,loc) values(#{name},#{location})

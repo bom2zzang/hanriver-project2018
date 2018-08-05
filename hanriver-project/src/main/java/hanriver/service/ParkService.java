@@ -36,4 +36,13 @@ public class ParkService {
 		return parkDao.delete(name);
 	}
 
+	public Object countAll(int size) {
+		int count = parkDao.countAll();
+		int totalPage = count / size;
+        if (count % size > 0) {
+            totalPage++;
+        };
+        return totalPage;
+    }
+
 }

@@ -16,4 +16,7 @@ public interface ParkDao {
 
 	int delete(String name);
 
+	int countAll();
+
+
 }
