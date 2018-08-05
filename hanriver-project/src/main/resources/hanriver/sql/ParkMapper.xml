@@ -22,6 +22,7 @@
   	</select>
   
 
+
 	<insert id="insert" parameterType="Park">
 	insert into han_park(name,loc) values(#{name},#{location})
 	</insert>
