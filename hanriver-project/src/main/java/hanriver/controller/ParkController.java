@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import hanriver.domain.Park;
 import hanriver.service.ParkService;
@@ -16,9 +17,17 @@ public class ParkController {
 	@Autowired ParkService parkService;
 
 	@RequestMapping("list")
-	public String list(Model model) throws Exception {
+	public String list(
+			@RequestParam(defaultValue="1")int page,
+			@RequestParam(defaultValue="10")int size,
+			Model model) throws Exception {
+		if (page < 1) page = 1;
+		if (size < 1 || size > 20) size = 10; 
+		model.addAttribute("list", parkService.list(page, size));
+		model.addAttribute("size", size);
+		model.addAttribute("page", page);
+		model.addAttribute("totalpage", parkService.countAll(size));
 		
-		model.addAttribute("list", parkService.list());
 		return "park/list";
 	}
 	
@@ -34,10 +43,10 @@ public class ParkController {
 		
 	}
 	
-	@RequestMapping("view/{name}")
-	public String view(@PathVariable String name, Model model) throws Exception {
+	@RequestMapping("view/{no}")
+	public String view(@PathVariable String no, Model model) throws Exception {
 		
-		Park park = parkService.get(name);
+		Park park = parkService.get(no);
 		model.addAttribute("park", park);
 		return "park/view";
 	}

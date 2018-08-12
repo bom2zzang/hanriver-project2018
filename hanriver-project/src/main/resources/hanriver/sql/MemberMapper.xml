@@ -10,6 +10,7 @@
     <result column="pwd" property="password"/>
     <result column="tel" property="tel"/>
   </resultMap>
+  
   <select id="selectList" resultMap="MemberMap" parameterType="map">
     select mno, id, email, tel from han_member
     <if test="startIndex != null and pageSize != null">

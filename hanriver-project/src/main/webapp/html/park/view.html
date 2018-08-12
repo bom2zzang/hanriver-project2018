@@ -6,53 +6,29 @@
 </head>
 <body>
 <h1>공원 상세보기</h1>
+<form>
 <table id="eViewTable" border='1'>
-<form action='../update' method='post'>
 <tr><th>공원이름</th>
-    <td><input type='text' id='eName' value='' readonly></td></tr>
+    <td><input type='text' id='eName' value='' readonly></td>
+    </tr>
 <tr><th>위치</th>
     <td><input type='text' id='eLocation'></td></tr>
-<p><button type="button" id="eListBtn">목록</button><button>변경하기</button><a href='../delete?name=ggg'>삭제하기</a></p>
-</form>
 </table>
+<p>
+<button type="button" id="eListBtn">목록</button>
+<button type="button" id="eUpdateBtn" class="viewform">변경하기</button>
+<button type="button" id="eDeleteBtn" class="viewform">삭제하기</button>
+<button type="button" id="eAddBtn" class="newform">등록하기</button>
+</p>
+</form>
 
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../node_modules/popper.js/dist/umd/popper.min.js"></script>
+<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../js/jquery.hanriver.js"></script>
 <script src="../js/common.js"></script>
-<script>
-"use strict"
-var data;
-var {name} = parseQuery(location.href);
+<script src="view.js"></script>
 
-
-loadList();
-eListBtn.onclick = function() {
-	location.href = `list.html`;
-};
-function loadList() {
-	
-	var xhr = new XMLHttpRequest();
-	
-	xhr.onreadystatechange = function() {
-	    if (xhr.readyState < 4) return;
-	    if (xhr.status !== 200) {
-	        alert("서버에서 오류 발생!");
-	        return;
-	    }
-	    data = JSON.parse(xhr.responseText);
-	    console.log(data);
-	    eName.value = data.park.name;
-	    eLocation.value = data.park.location;
-	    
-	};
-	
-	xhr.open('GET', 
-	        `../../json/park/view/${name}`, 
-	        true);
-	
-	xhr.send();
-	
-}
-
-</script>
 
 </body>
 </html>

@@ -11,10 +11,13 @@
 	
 	<select id="selectList" resultMap="ParkMap" parameterType="map">
 	select pno, name, loc from han_park
+	<if test="startIndex != null and pageSize != null">
+		limit #{startIndex}, #{pageSize}
+	</if>
 	</select>
 	
 	<select id="selectOne" resultMap="ParkMap" parameterType="string">
-	select pno, name, loc from han_park where name=#{value}
+	select pno, name, loc from han_park where pno=#{value}
 	</select>
 	
 	<select id="countAll" resultType="int">

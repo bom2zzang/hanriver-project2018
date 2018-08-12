@@ -32,12 +32,12 @@ public class ParkController {
 	@RequestMapping("list")
 	public Object list(
 			@RequestParam(defaultValue="1")int page,
-			@RequestParam(defaultValue="1")int size
+			@RequestParam(defaultValue="10")int size
 			) throws Exception {
 		if (page < 1) page = 1;
         if (size < 1 || size > 20) size = 10;
 		HashMap<String, Object> data = new HashMap<>();
-		data.put("list", parkService.list());
+		data.put("list", parkService.list(page, size));
 		data.put("size",size);
 		data.put("page",page);
 		data.put("totalPage", parkService.countAll(size));
@@ -45,32 +45,40 @@ public class ParkController {
 	}
 	
 	
-	@RequestMapping("view/{name}")
-	public Object view(@PathVariable String name) throws Exception {
+	@RequestMapping("view/{no}")
+	public Object view(@PathVariable String no) throws Exception {
 		HashMap<String, Object> data = new HashMap<>();
 //		data.put("park", parkService.get(name));
 
-		Park park = parkService.get(name);
+		Park park = parkService.get(no);
 		data.put("park", park);
 		
 		return data;
 	}
 	
 	@RequestMapping("update")
-	public String update(Park park) throws Exception {
-		
+	public Object update(Park park) throws Exception {
+		HashMap<String, Object> result = new HashMap<>();
 		if (parkService.update(park) == 0) {
-			return "park/updatefail";
+			result.put("status", "fail");
+			result.put("error", "해당공원번호가 없습니다.");
 		} else {
-			return "redirect:list";
+			result.put("status", "success");
 		}
+		return result;
 	}
 	
 	@RequestMapping("delete")
-	public String delete(String name) throws Exception {
+	public Object delete(String name) throws Exception {
+		HashMap<String, Object> result = new HashMap<>();
+		if (parkService.delete(name) == 0) {
+			result.put("status", "fail");
+			result.put("error", "삭제할 공원이 없습니다.");
+		} else {
+			result.put("status", "success");
+		}
 		
-		parkService.delete(name);
-		return "redirect:list";
+		return result;
 	}
 	
 	

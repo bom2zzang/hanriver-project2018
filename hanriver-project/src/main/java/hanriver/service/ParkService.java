@@ -1,5 +1,6 @@
 package hanriver.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +14,11 @@ public class ParkService {
 	
 	@Autowired ParkDao parkDao;
 
-	public List<Park> list() {
-
-		return parkDao.selectList();
+	public List<Park> list(int page, int size) {
+		HashMap<String, Object> params = new HashMap<>();
+		params.put("startIndex", (page - 1) * size);
+		params.put("pageSize", size);
+		return parkDao.selectList(params);
 	}
 
 	public void add(Park park) {
@@ -23,8 +26,8 @@ public class ParkService {
 		
 	}
 
-	public Park get(String name) {
-		return parkDao.selectOne(name);
+	public Park get(String no) {
+		return parkDao.selectOne(no);
 	}
 
 	public int update(Park park) {

@@ -48,3 +48,12 @@ tbody.on('click', 'a.viewLink', function(event) {
     var id = $(event.target).attr('data-id');
     location.href = `view.html?id=${id}&page=${data.page}&size=${data.size}`;
 });
+
+
+
+
+
+
+
+
+
