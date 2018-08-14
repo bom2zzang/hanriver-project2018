@@ -30,6 +30,7 @@ function loadList(page, size) {
 			    		`<td>${item.no}</td><td><a href='#' data-id='${item.no}' class='viewLink'>${item.name}</a></td>
 			    		<td>${item.location}</td>`).appendTo(tbody);
 			    }
+				
 				$(ePageNo).html(data.page);
 				if (data.page <= 1)
 					$(ePrevBtn).attr('disabled', '');
