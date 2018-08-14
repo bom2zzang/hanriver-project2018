@@ -25,9 +25,11 @@ public class NoticeController {
     }
     
     @PostMapping("add")
-    public String add(Notice notice) {
+    public Object add(Notice notice) {
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("status", "success");
         noticeService.add(notice);
-        return "redirect:list";
+        return result;
     }
     
     @RequestMapping("view/{no}")
@@ -38,12 +40,15 @@ public class NoticeController {
     }
     
     @RequestMapping("update")
-    public String update(Notice notice) throws Exception {
+    public Object update(Notice notice) throws Exception {
+        HashMap<String, Object> result = new HashMap<>();
         if (noticeService.update(notice) == 0) {
-            return "notice/updatefail";
+            result.put("status", "fail");
+            result.put("error", "해당 아이디가 없습니다.");
         } else {
-            return "redirect:list";
+            result.put("status", "success");
         }
+        return result;
     }
     
     @RequestMapping("list")
@@ -62,8 +67,14 @@ public class NoticeController {
     }
     
     @RequestMapping("delete")
-    public String delete(String no) throws Exception {
-        noticeService.delete(no);
-        return "redirect:list";
+    public Object delete(String no) throws Exception {
+        HashMap<String, Object> result = new HashMap<>();
+        if (noticeService.delete(no) == 0) {
+            result.put("status", "fail");
+            result.put("error", "해당 아이디가 없습니다.");
+        } else {
+            result.put("status", "success");
+        }
+        return result;
     }
 }
