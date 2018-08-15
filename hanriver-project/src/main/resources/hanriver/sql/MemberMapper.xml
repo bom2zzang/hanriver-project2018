@@ -12,30 +12,30 @@
   </resultMap>
   
   <select id="selectList" resultMap="MemberMap" parameterType="map">
-    select mno, id, email, tel from han_member
+    select mno, id, email, tel from han_memb
     <if test="startIndex != null and pageSize != null">
         limit #{startIndex}, #{pageSize}
     </if>
   </select>
   
   <select id="selectOne" resultMap="MemberMap" parameterType="string">
-    select mno, id, email, tel from han_member where id=#{value}
+    select mno, id, email, tel from han_memb where id=#{value}
   </select>
   
   <select id="countAll" resultType="int">
-    select count(*) from han_member
+    select count(*) from han_memb
   </select>
   
   <insert id="insert" parameterType="Member">
-    insert into han_member(id,email,pwd,tel) values(#{id},#{email},password(#{password}),#{tel})
+    insert into han_memb(id,email,pwd,tel) values(#{id},#{email},password(#{password}),#{tel})
   </insert>
   
   <update id="update" parameterType="Member">
-    update han_member set email=#{email}, pwd=password(#{password}), tel=#{tel} where id=#{id}
+    update han_memb set email=#{email}, pwd=password(#{password}), tel=#{tel} where id=#{id}
   </update>
   
   <delete id="delete" parameterType="string">
-    delete from han_member where id=#{value}
+    delete from han_memb where id=#{value}
   </delete>
   
 </mapper>

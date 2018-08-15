@@ -12,30 +12,30 @@
   
   
   <select id="selectList" resultMap="NoticeMap">
-    select nno, titl, cont, cdt from han_notice
+    select nno, titl, cont, cdt from han_noti
     <if test="startIndex != null and pageSize != null">
         limit #{startIndex}, #{pageSize}
     </if>
   </select>
   
   <select id="selectOne" resultMap="NoticeMap" parameterType="string">
-    select nno, titl, cont, cdt from han_notice where nno=#{value}
+    select nno, titl, cont, cdt from han_noti where nno=#{value}
   </select>
   
   <select id="countAll" resultType="int">
-    select count(*) from han_notice
+    select count(*) from han_noti
   </select>
   
   <insert id="insert" parameterType="Notice">
-    insert into han_notice(titl,cont,cdt) values(#{title},#{contents},now())
+    insert into han_noti(titl,cont,cdt) values(#{title},#{contents},now())
   </insert>
   
   <update id="update" parameterType="Notice">
-    update han_notice set titl=#{title}, cont=#{contents}, cdt=now() where nno=#{no}
+    update han_noti set titl=#{title}, cont=#{contents}, cdt=now() where nno=#{no}
   </update>
   
   <delete id="delete" parameterType="string">
-    delete from han_notice where nno=#{value}
+    delete from han_noti where nno=#{value}
   </delete>
   
 </mapper>
