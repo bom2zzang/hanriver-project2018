@@ -1,0 +1,1 @@
+var serverApiAddr = "http://172.30.1.45:8080/hanriver-project";
