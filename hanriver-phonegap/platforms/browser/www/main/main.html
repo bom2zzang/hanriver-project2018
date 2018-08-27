@@ -56,6 +56,7 @@ section {
   width: 100%;
   margin: 0;
   padding: 10px;
+  padding-left: 18px;
   background: #999;
 }
 
@@ -65,9 +66,29 @@ section {
 	border-radius: 1em;	
 	width: 90px;
 	height: 90px;
-	margin: 8px;
-	
+	margin: 8px 8px 16px 8px;
 }
+
+.carousel-indicators {
+	top: 230px;
+}
+
+.carousel-indicators li {
+    border-radius: 10px;
+    margin: 1px 3px;
+    height: 10px;
+    max-width: 10px;
+    border: 1px solid #FFF;
+    background-color: transparent;
+    
+}
+.carousel-indicators .active {
+    background-color: #fff;
+    max-width: 12px;
+    margin: 0 3px;
+    height: 12px;
+}
+
 
 #eParkLive {
 	height: 176px;
@@ -109,6 +130,7 @@ section {
     <div class="han-icon">D</div>
     <div class="han-icon">D</div>
     </div>
+
     <div class="carousel-item">
     <div class="han-icon">뚝섬</div>
     <div class="han-icon">B</div>
@@ -126,6 +148,7 @@ section {
     <div class="han-icon">D</div>
     <div class="han-icon">D</div>
     </div>
+
   </div>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
