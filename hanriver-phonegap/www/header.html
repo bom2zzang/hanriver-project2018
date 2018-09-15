@@ -10,7 +10,7 @@ body {
     z-index: 1;
     top: 0;
     left: 0;
-    background-color: #111;
+    background-color: #FFFFFF;
     overflow-x: hidden;
     transition: 0.5s;
     padding-top: 60px;
@@ -19,14 +19,15 @@ body {
 .sidenav a {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
-    font-size: 25px;
+    font-size: 15px;
     color: #818181;
     display: block;
     transition: 0.3s;
+    border: 1px solid black;
 }
 
 .sidenav a:hover {
-    color: #f1f1f1;
+    color: #17a2b8;
 }
 
 .sidenav .closebtn {
@@ -41,14 +42,28 @@ body {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
 }
+.prof {
+	height : 80px;
+	border: 1px solid black;
+    display: inline-flex;
+ 	
+}
+.prof div{
+	width : 40%;
+}
 </style>
 
 <div id="mySidenav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a href="#">About</a>
-  <a href="#">Services</a>
-  <a href="#">Clients</a>
-  <a href="#">Contact</a>
+<div class= "prof">
+<div><a>프로필사진</a></div>
+<div>
+  <a href="#">아이디</a>
+</div>
+
+</div>
+  <a href="#">공원사진</a>
+  <a href="#">공지</a>
 </div>
 
 <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
