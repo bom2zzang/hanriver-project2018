@@ -27,5 +27,15 @@ public class PhotoServiceImpl implements PhotoService {
     public List<Photo> list() {
         return photoDao.selectAll();
     }
+
+    @Override
+    public int update(Photo photo) {
+        return photoDao.update(photo);
+    }
+
+    @Override
+    public Photo get(int no) {
+        return photoDao.selectOne(no);
+    }
     
 }

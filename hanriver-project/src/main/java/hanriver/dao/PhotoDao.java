@@ -13,4 +13,8 @@ public interface PhotoDao {
     int delete(@Param("no") int no, @Param("mno")int mno);
 
     List<Photo> selectAll();
+
+    int update(Photo photo);
+
+    Photo selectOne(int no);
 }

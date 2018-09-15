@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +23,9 @@ public class PhotoController {
     @PostMapping("add")
     public Object add(HttpSession session, Photo photo) throws Exception {
         HashMap<String, Object> result = new HashMap<>();
+        //Member loginUser = (Member)session.getAttribute("loginUser");
+        //photo.setMno(loginUser.getNo());
+        photo.setMno(1);
         result.put("status", "success");
         photoService.add(photo);
         return result;
@@ -43,10 +47,32 @@ public class PhotoController {
         return result;
     }
     
+    @PostMapping("update")
+    public Object update(HttpSession session, Photo photo) throws Exception {
+        HashMap<String, Object> result = new HashMap<>();
+        //Member loginUser = (Member)session.getAttribute("loginUser");
+        //photo.setMno(loginUser.getNo());
+        photo.setMno(1);
+        if (photoService.update(photo) == 0) {
+            result.put("status", "fail");
+            result.put("error", "해당 게시글이없습니다.");
+        } else {
+            result.put("status", "success");
+        }
+        return result;
+    }
+    
     @GetMapping("list")
     public Object list() throws Exception {
         HashMap<String, Object> data = new HashMap<>();
         data.put("list", photoService.list());
+        return data;
+    }
+    
+    @GetMapping("view/{no}")
+    public Object view(@PathVariable int no) throws Exception {
+        HashMap<String, Object> data = new HashMap<>();
+        data.put("photo", photoService.get(no));
         return data;
     }
 }

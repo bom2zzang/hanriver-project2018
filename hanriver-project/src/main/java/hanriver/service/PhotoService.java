@@ -11,4 +11,8 @@ public interface PhotoService {
     public int delete(int no, int mno);
 
     public List<Photo> list();
+
+    public int update(Photo photo);
+
+    public Photo get(int no);
 }

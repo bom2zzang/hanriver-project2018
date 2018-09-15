@@ -16,9 +16,22 @@
     select phno, cont, photo, cdt, mno, pno from han_photo
   </select>
   
+  <select id="selectOne" resultMap="PhotoMap" parameterType="int">
+    select phno, cont, photo, cdt, mno, pno from han_photo where phno=#{value}
+  </select>
+  
   <insert id="insert" parameterType="Photo">
     insert into han_photo(cont,photo,cdt,mno,pno) values(#{contents},#{photo},now(),#{mno},#{pno})
   </insert>
+  
+  <update id="update" parameterType="Photo">
+    update han_photo set
+        cont=#{contents},
+        photo=#{photo},
+        cdt=now(),
+        pno=#{pno}
+    where phno=#{no} and mno=#{mno}
+  </update>
   
   <delete id="delete">
     delete from han_photo where phno=#{no} and mno=#{mno}
