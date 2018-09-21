@@ -18,4 +18,6 @@ public interface MemberDao {
     int delete(String id);
 
     int countAll();
+    
+    Integer validMemberCheck(Member member);
 }
