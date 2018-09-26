@@ -1,1 +1,1 @@
-var serverApiAddr = "http://172.30.1.45:8080/hanriver-project";
+var serverApiAddr = "http://172.20.10.7:8080/hanriver-project";

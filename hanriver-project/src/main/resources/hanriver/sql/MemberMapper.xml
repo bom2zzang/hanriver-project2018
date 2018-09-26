@@ -38,11 +38,11 @@
     delete from han_memb where id=#{value}
   </delete>
   
-  <select id="validMemberCheck" resultMap="int">
+  <select id="validMemberCheck" resultType="int" parameterType="Member">
   	select 
   	mno 
   	from han_memb
-  	where id = #{email} and pwd = password(#{pwd})
+  	where id = #{id} and pwd = password(#{password})
   </select>
   
 </mapper>

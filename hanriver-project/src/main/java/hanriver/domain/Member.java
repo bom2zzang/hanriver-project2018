@@ -7,6 +7,10 @@ public class Member {
     private String password;
     private String tel;
     
+    @Override
+    public String toString() {
+        return "Member [no=" + no + ", id=" + id + ", email=" + email + ", password=" + password + ", tel=" + tel + "]";
+    }
     public int getNo() {
         return no;
     }

@@ -52,30 +52,18 @@ section {
 </div>
 <form class="loginForm">
   <div class="form-group">
-  <!-- 
-     <label for="exampleInputEmail1">아이디</label>
-   -->
-    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="아이디">
+    <input type="text" class="form-control" id="eId" aria-describedby="emailHelp" placeholder="아이디">
   </div>
   <div class="form-group">
-  <!-- 
-    <label for="exampleInputPassword1">비밀번호</label>
-   -->
-    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="비밀번호">
+    <input type="password" class="form-control" id="ePassword" placeholder="비밀번호">
   </div>
   <div class="form-group">
-  <!-- 
-    <label for="exampleInputPassword1">비밀번호</label>
-   -->
-    <input type="email" class="form-control" id="exampleInputPassword1" placeholder="이메일">
+    <input type="email" class="form-control" id="eEmail" placeholder="이메일">
   </div>
   <div class="form-group">
-  <!-- 
-    <label for="exampleInputPassword1">비밀번호</label>
-   -->
-    <input type="tel" class="form-control" id="exampleInputPassword1" placeholder="연락처">
+    <input type="tel" class="form-control" id="eTel" placeholder="연락처">
   </div>
-  <button type="submit" class="btn btn-primary btn-sm btn-block">회원가입</button>
+  <button type="button" id="eAddBtn" class="btn btn-primary btn-sm btn-block">회원가입</button>
 </form>
 
 </section>
@@ -89,6 +77,21 @@ section {
 <script type="text/javascript">
 'use strict'
 $('header').load('../header.html');
-  </script>
+
+$('#eAddBtn').click(() => {
+	  $.post(serverApiAddr + '/json/member/add', 
+		        {
+		            id: $('#eId').val(), 
+		            email: $('#eEmail').val(), 
+		            password: $('#ePassword').val(),
+		            tel: $('#eTel').val()
+		        },
+		        function(data) {
+		            location.href = 'login.html';
+		        },
+		        'json');
+});
+
+</script>
 </body>
 </html>
