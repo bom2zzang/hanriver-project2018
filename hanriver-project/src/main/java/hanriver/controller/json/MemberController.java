@@ -35,10 +35,6 @@ public class MemberController {
     }
     
     
-    
-    
-    
-    
     @RequestMapping("delete")
     public Object delete(String id) throws Exception {
         HashMap<String, Object> result = new HashMap<>();
@@ -93,22 +89,18 @@ public class MemberController {
     
 
   //로그인 
-    @PostMapping("logIn")
-    public Object logIn(Member member, HttpSession session) throws Exception{
+    @PostMapping("login")
+    public Object login(Member member, HttpSession session) throws Exception{
     	HashMap<String, Object> result = new HashMap<>();
-    	if (memberService.validMemberCheck(member) == 0) {
+    	int memberNo = memberService.validMemberCheck(member);
+    	if (memberNo == 0) {
     		result.put("status", "fail");
     		result.put("error", "해당 아이디가 없습니다.");
     	} else {
+    	    session.setAttribute("loginUser", memberNo);
     		result.put("status", "success");
     	}
     	return result;
     }
-    
-    
-    
-    
-    
-
 }
 
