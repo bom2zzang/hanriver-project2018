@@ -35,10 +35,6 @@ public class MemberController {
     }
     
     
-    
-    
-    
-    
     @RequestMapping("delete")
     public Object delete(String id) throws Exception {
         HashMap<String, Object> result = new HashMap<>();
@@ -92,29 +88,19 @@ public class MemberController {
     }
     
 
-    //로그인 
-    @PostMapping("logIn")
-    public ResponseEntity<String> logIn(Member member, HttpSession session) throws Exception{
-    	ResponseEntity<String> entity = null;
-    	int mid = -1;
-    	try {
-    		mid = memberService.validMemberCheck(member);
-    		if(mid <= 0) throw new Exception("UserNotFound");
-    		
-    		entity = ResponseEntity.ok().body("sucess");
-    		session.setAttribute("loginUser", mid);
-    	}catch(Exception e) {
-    		e.printStackTrace();
-    		entity = ResponseEntity.status(HttpStatus.BAD_REQUEST).body("fail");
+  //로그인 
+    @PostMapping("login")
+    public Object login(Member member, HttpSession session) throws Exception{
+    	HashMap<String, Object> result = new HashMap<>();
+    	int memberNo = memberService.validMemberCheck(member);
+    	if (memberNo == 0) {
+    		result.put("status", "fail");
+    		result.put("error", "해당 아이디가 없습니다.");
+    	} else {
+    	    session.setAttribute("loginUser", memberNo);
+    		result.put("status", "success");
     	}
-    	
-    	return entity;
+    	return result;
     }
-    
-    
-    
-    
-    
-
 }
 

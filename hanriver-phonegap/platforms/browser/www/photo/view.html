@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>login</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<style>
+.container {
+	width: 360px;
+	height: 616px;
+	border: 1px solid blue;
+ 	padding: 0px;
+}
+
+header {
+    background-color: #00cbdecc;
+    height : 40px;
+}
+
+section {
+	border: 1px solid black;
+}
+
+#ePhotoMain {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0 30px;
+    height: 576px;
+}
+
+.photobox {
+    margin-top: 2px;
+    margin-bottom: 2px;
+     border: 1px solid red;
+     
+ 
+}
+
+#LoadImg {
+max-height: 296px;
+margin: auto;
+display:flex;
+}
+ 
+
+</style>
+</head>
+<body>
+<div class="container">
+<header></header>
+<section id="ePhotoMain">
+<div class="custom-file">
+  <input type="file" class="custom-file-input" id="customFile" onchange="LoadImg(this);"/>
+  <label class="custom-file-label" for="customFile">Choose file</label>
+</div>
+<div class="photobox">
+		<img id="LoadImg">
+</div>
+  <div class="form-group">
+    <select class="form-control" id="exampleFormControlSelect1">
+      <option>하이이이이</option>
+      <option>2</option>
+      <option>3</option>
+      <option>4</option>
+      <option>5</option>
+    </select>
+  </div>
+ <div class="form-group">
+    <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="설명">
+  </div>
+<button type="submit" class="btn btn-primary btn-sm btn-block">올리기</button>
+</section>
+</div>
+
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../node_modules/popper.js/dist/umd/popper.min.js"></script>
+<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../js/common2.js"></script>
+
+<script type="text/javascript">
+'use strict'
+$('header').load('../header.html');
+
+function LoadImg(value) 
+{
+	if(value.files && value.files[0]) 
+	{
+		var reader = new FileReader();
+
+		reader.onload = function (e) {
+			$('#LoadImg').attr('src', e.target.result);
+		}
+	
+		reader.readAsDataURL(value.files[0]);
+	}
+}
+
+  </script>
+</body>
+</html>

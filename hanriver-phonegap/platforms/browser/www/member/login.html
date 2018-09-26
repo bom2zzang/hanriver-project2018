@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>login</title>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+<style>
+.container {
+	width: 360px;
+	height: 616px;
+	border: 1px solid blue;
+ 	padding: 0px;
+}
+
+header {
+    background-color: #00cbdecc;
+    height : 40px;
+}
+
+section {
+	border: 1px solid black;
+}
+
+#eLoginMain {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin: 0 30px;
+    height: 576px;
+}
+.loginLogo {
+    margin-top: 50px;
+    height: 80px;
+    line-height: 90px;
+    font-weight: bolder;
+    padding: 10px;
+    text-align: center;
+}
+.loginForm {
+    margin-top: 50px;
+    margin-bottom: 200px;
+}
+
+</style>
+</head>
+<body>
+<div class="container">
+<header></header>
+<section id="eLoginMain">
+<div class="loginLogo">
+<a> HANPASS </a>
+</div>
+<form class="loginForm">
+  <div class="form-group">
+    <input type="text" class="form-control" id="eId" aria-describedby="emailHelp" placeholder="아이디">
+  </div>
+  <div class="form-group">
+    <input type="password" class="form-control" id="ePassword" placeholder="비밀번호">
+  </div>
+  <button type="button" id="eLoginBtn"class="btn btn-primary btn-sm btn-block">로그인</button>
+  <button type="button" id="eSignBtn" class="btn btn-primary btn-sm btn-block">회원가입</button>
+</form>
+</section>
+</div>
+
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../node_modules/popper.js/dist/umd/popper.min.js"></script>
+<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../js/common2.js"></script>
+
+<script>
+'use strict'
+$('header').load('../header.html');
+$('#eSignBtn').click(() => {
+    location.href='signUp.html';
+});
+
+$('#eLoginBtn').click(() => {
+	$.post(serverApiAddr + '/json/member/login', 
+            {
+                id: $('#eId').val(), 
+                password: $('#ePassword').val()
+            },
+            function(data) {
+                location.href = '../park/park.html';
+            },
+            'json'). fail(() => {
+            	alert("실패");
+            });
+	
+});
+</script>
+</body>
+</html>

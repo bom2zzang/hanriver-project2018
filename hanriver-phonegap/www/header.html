@@ -1,5 +1,6 @@
 <style>
 body {
+    font-family: "Lato", sans-serif;
 }
 
 .sidenav {
@@ -12,9 +13,18 @@ body {
     background-color: #FFFFFF;
     overflow-x: hidden;
     transition: 0.5s;
+    display:flex;
+    flex-direction: column;
+    line-height: 1;
 }
 
 .sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 15px;
+    color: #818181;
+/*     display: block; */
+    transition: 0.3s;
 }
 
 .sidenav a:hover {
@@ -22,39 +32,88 @@ body {
 }
 
 .sidenav .closebtn {
+    font-size: 36px;
+    margin-left: auto;
 }
 
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
 }
-.prof {
-	border: 1px solid black;
-}
-.prof div{
-	width : 40%;
+
+.nav-title {
+    height: 54px;
+    display: flex;
+    flex-direction: row;
+    border-bottom: solid 4px rgba(0,0,0,0.2);
 }
 
-.sideTitle {
-    font-size: 36px;
+.nav-title > div {
+    margin: auto;
+    font-size: 27px;
+}
+
+.prof {
+    height : 120px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    border-bottom: solid 4px rgba(0,0,0,0.2);
+    background: cyan;
+}
+
+.prof-image {
+    height: 80px;
+    width: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    margin-right: 50px;
+}
+
+.prof-image > img {
+    cursor: pointer;
+    width: 100%;
+}
+.prof-id {
+    font-size: 18px;
+}
+
+.nav-menu {
+    height: 45px;
+    align-items: center;
+    display: flex;
+    border-bottom: solid 1px rgba(0,0,0,0.2);
+    padding: 0 16px;
+}
+.#mySidenav {
+    
 }
 
 </style>
 
-<div id="mySidenav" class="sidenav">
-<div class="prof">
-    <div class="sideTitle">
-        <i class="fas fa-times"></i>
+<div id="mySidenav" class="fixed-top sidenav">
+    <div class="nav-title">
+	    <div>HANPASS</div>
+	    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     </div>
-    <div><a>프로필사진</a></div>
-	<div>
-	  <a href="#">아이디</a>
+	<div class= "prof">
+		<div>
+		   <div class="prof-image">
+		      <img src="../sample/1.png" alt=""/>
+		   </div>
+	   	</div>
+		<div class="prof-id">
+	                       석희 님
+	       </div>
 	</div>
+    <div class="nav-menu">공원사진</div>
+    <div class="nav-menu">공지</div>
 </div>
-  <a href="#">공원사진</a>
-  <a href="#">공지</a>
-</div>
+
 <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; open</span>
+
 <script>
 function openNav() {
     document.getElementById("mySidenav").style.width = "250px";
