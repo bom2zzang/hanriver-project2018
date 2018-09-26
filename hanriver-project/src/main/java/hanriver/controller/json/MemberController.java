@@ -92,23 +92,17 @@ public class MemberController {
     }
     
 
-    //로그인 
+  //로그인 
     @PostMapping("logIn")
-    public ResponseEntity<String> logIn(Member member, HttpSession session) throws Exception{
-    	ResponseEntity<String> entity = null;
-    	int mid = -1;
-    	try {
-    		mid = memberService.validMemberCheck(member);
-    		if(mid <= 0) throw new Exception("UserNotFound");
-    		
-    		entity = ResponseEntity.ok().body("sucess");
-    		session.setAttribute("loginUser", mid);
-    	}catch(Exception e) {
-    		e.printStackTrace();
-    		entity = ResponseEntity.status(HttpStatus.BAD_REQUEST).body("fail");
+    public Object logIn(Member member, HttpSession session) throws Exception{
+    	HashMap<String, Object> result = new HashMap<>();
+    	if (memberService.validMemberCheck(member) == 0) {
+    		result.put("status", "fail");
+    		result.put("error", "해당 아이디가 없습니다.");
+    	} else {
+    		result.put("status", "success");
     	}
-    	
-    	return entity;
+    	return result;
     }
     
     
