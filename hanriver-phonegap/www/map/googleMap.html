@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
+    <script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 37.250943, lng: 127.028344},
+          zoom: 10
+        });
+        
+        var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
+        var icons = {
+          parking: {
+            icon: iconBase + 'parking_lot_maps.png'
+          },
+          library: {
+            icon: iconBase + 'library_maps.png'
+          },
+          info: {
+            icon: iconBase + 'info-i_maps.png'
+          }
+        };
+        
+        $.ajax({
+            type: "GET"
+            ,dataType: "xml"
+            ,url: "http://openapi.seoul.go.kr:8088/435a417851746a7237396552564e4e/xml/GeoInfoStoreWGS/1/100"
+            ,success: function(xml){
+                 var xmlData = $(xml).find("row");
+                 var listLength = xmlData.length;
+                 if (listLength) {
+                	 var array = [];
+                     $(xmlData).each(function(){
+                    	 array.push({position: new google.maps.LatLng(Number($(this).find("LAT").text()), Number($(this).find("LNG").text())), type: 'info'});
+                     });
+                     array.forEach(function(feature) {
+                         var marker = new google.maps.Marker({
+                           position: feature.position,
+                           icon: icons[feature.type].icon,
+                           map: map
+                         });
+                       });
+                 }
+             }
+        });
+        
+        
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBLNzUayS4Y0N3Wgxvyddc-JpwsafMc3bk&callback=initMap"
+    async defer></script>
+  </body>
+</html>
+    
