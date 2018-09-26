@@ -79,7 +79,6 @@
     display: none;
     float: left;
 
-    min-height: 1px;
 }
 [dir='rtl'] .slick-slide
 {

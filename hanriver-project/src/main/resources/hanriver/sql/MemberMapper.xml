@@ -38,4 +38,11 @@
     delete from han_memb where id=#{value}
   </delete>
   
+  <select id="vaildMemberCheck" resultMap="Integer">
+  	select 
+  	mno 
+  	from han_memb
+  	where id = #{email} and pwd = password(#{pwd})
+  </select>
+  
 </mapper>

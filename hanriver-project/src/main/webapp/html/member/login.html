@@ -2,27 +2,21 @@
 <html>
 <head>
 <meta charset='UTF-8'>
-<title>멤버 뷰</title>
+<title>멤버 로그인</title>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
 </head>
 <body>
-<h1>멤버2</h1>
+<h1>로그인폼</h1>
 <form>
 <table border='1'>
 <tr><th>아이디</th>
-    <td><input type='text' id='eId' value=''></td></tr>
+    <td><input type='text' id='eId'></td></tr>
 <tr><th>암호</th>
     <td><input type='password' id='ePassword' ></td></tr>
-<tr><th>이메일</th>
-    <td><input type='email' id='eEmail'></td></tr>
-<tr><th>전화번호</th>
-    <td><input type='text' id='eTel'></td></tr>
 </table>
 <p>
 <button type="button" id="eListBtn">목록</button>
-<button type="button" id="eUpdateBtn" class="viewform">변경하기</button>
-<button type="button" id="eDeleteBtn" class="viewform">삭제하기</button>
-<button type="button" id="eAddBtn" class="newform">등록하기</button>
+<button type="button" id="eLogin">로그인</button>
 </p>
 </form>
 <script src="../node_modules/jquery/dist/jquery.min.js"></script>
@@ -30,7 +24,7 @@
 <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="../js/jquery.hanriver.js"></script>
 <script src="../js/common.js"></script>
-<script src="view.js"></script>
+<script src="login.js"></script>
 
 </body>
 </html>
