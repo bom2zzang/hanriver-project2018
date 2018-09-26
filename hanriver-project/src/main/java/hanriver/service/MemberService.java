@@ -47,7 +47,7 @@ public class MemberService {
         return totalPage;
     }
     
-    //로그인
+  //로그인
     public int validMemberCheck(Member member) {
     	return memberDao.validMemberCheck(member);
     }

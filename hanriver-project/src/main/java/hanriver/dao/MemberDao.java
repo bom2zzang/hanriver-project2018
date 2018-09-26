@@ -19,5 +19,5 @@ public interface MemberDao {
 
     int countAll();
     
-    Integer validMemberCheck(Member member);
+    int validMemberCheck(Member member);
 }

@@ -38,7 +38,7 @@
     delete from han_memb where id=#{value}
   </delete>
   
-  <select id="vaildMemberCheck" resultMap="Integer">
+  <select id="validMemberCheck" resultMap="int">
   	select 
   	mno 
   	from han_memb
