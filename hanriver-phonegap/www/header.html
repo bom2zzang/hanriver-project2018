@@ -98,15 +98,15 @@ body {
 	    <div>HANPASS</div>
 	    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
     </div>
-	<div class= "prof">
+	<div class="prof">
 		<div>
 		   <div class="prof-image">
 		      <img src="../sample/1.png" alt=""/>
 		   </div>
 	   	</div>
 		<div class="prof-id">
-	                       석희 님
-	       </div>
+		      석희 님
+	    </div>
 	</div>
     <div class="nav-menu">공원사진</div>
     <div class="nav-menu">공지</div>
@@ -116,10 +116,14 @@ body {
 
 <script>
 function openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
+    $('#mySidenav').css('width', '250');
 }
 
 function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
+    $('#mySidenav').css('width', '0');
 }
+
+$('.prof').click(() => {
+    location.href='../member/view.html';
+});
 </script>
