@@ -155,57 +155,76 @@ h6 {
 <body>
 <div class="container">
 <header></header>
-	<article class="eParkSection">
-		<section id="eParkMain">
-			<div class="parkInfo">
-			    <div class="parkInfo-head">여의도 공원<div class="parkInfo-temp">최저18&#176; 최고31&#176;</div></div>
-				<div class="parkInfo-body">
-			     <div class="parkInfo-left">
-			         <h5>MONDAY</h5>
-			         <h6>00/00/2018</h6>
-			         <h6>wind 6 km/h</h6>
-			         <h6><i class="fas fa-tint"></i>30%</h6>
-			         <h6>미세먼지 좋음</h6>
-			     </div>
-			     <div class="parkInfo-right">
-			         <div><i class="fas fa-cloud"></i>27&#176;</div>
-			         <div>흐림</div>
-			     </div>
-			  </div>
-		  </div>
-			<div class="parkNotice">
-			     <div class="parkNotice-left">
-			         <i class="fas fa-thumbtack fa-3x"></i>
+    <article class="eParkSection">
+        <section id="eParkMain">
+        </section>
+    </article>
+</div>
+
+<script src="../node_modules/jquery/dist/jquery.min.js"></script>
+<script src="../node_modules/popper.js/dist/umd/popper.min.js"></script>
+<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../node_modules/handlebars/dist/handlebars.min.js"></script>
+<script src="../css/slick-carousel/slick/slick.min.js"></script>
+<script src="../js/common2.js"></script>
+<script id="parkMain-template" type="text/x-handlebars-template">
+<div class="parkInfo">
+                <div class="parkInfo-head">여의도 공원<div class="parkInfo-temp">최저{{TMN}}&#176; 최고{{TMX}}&#176;</div></div>
+                <div class="parkInfo-body">
+                 <div class="parkInfo-left">
+                     <h5>MONDAY</h5>
+                     <h6>00/00/2018</h6>
+                     <h6>wind 6 km/h</h6>
+                     <h6><i class="fas fa-tint"></i>30%</h6>
+                     <h6>미세먼지 좋음</h6>
+                 </div>
+                 <div class="parkInfo-right">
+                     <div><i class="fas fa-cloud"></i>27&#176;</div>
+                     <div>흐림</div>
+                 </div>
+              </div>
+          </div>
+            <div class="parkNotice">
+                 <div class="parkNotice-left">
+                     <i class="fas fa-thumbtack fa-3x"></i>
                  </div>
                  <div class="parkNotice-center">
                     <div>2018. 08. 15</div>
                     <div>한강 그림 놀이 페스티벌 시간 변경</div>
                  </div>
                  <div class="parkNotice-right">
-	                 <div><i class="fas fa-caret-up"></i></div>
-	                 <div><i class="fas fa-caret-down"></i></div>
+                     <div><i class="fas fa-caret-up"></i></div>
+                     <div><i class="fas fa-caret-down"></i></div>
                  </div>
-			</div>
-			<div class="parkAddr">
-		         <div class="parkAddr-head">서울 영등포구 여의도동 123-456</div>
-		         <div class="parkAddr-body">
-			         <div class="parkAddr-contents">
-	                      <i class="fas fa-bus fa-2x"></i><div>124 / 147 / 501 / 608</div>
-		             </div>
-		             <div class="parkAddr-contents">
-	                      <i class="fas fa-subway fa-2x"></i><div>지하철 5호선 여의나루역 2번 / 3번 출구</div>
-	                 </div>
+            </div>
+            <div class="parkAddr">
+                 <div class="parkAddr-head">서울 영등포구 여의도동 123-456</div>
+                 <div class="parkAddr-body">
+                     <div class="parkAddr-contents">
+                          <i class="fas fa-bus fa-2x"></i><div>124 / 147 / 501 / 608</div>
+                     </div>
+                     <div class="parkAddr-contents">
+                          <i class="fas fa-subway fa-2x"></i><div>지하철 5호선 여의나루역 2번 / 3번 출구</div>
+                     </div>
                  </div>
-			</div>
-		</section>
-	</article>
-</div>
+            </div>
+</script>
+<script>
+'use strict'
+$('header').load('../header.html');
+var parkMainTemplateSrc = $('#parkMain-template').text();
+var parkMainTemplate = Handlebars.compile(parkMainTemplateSrc);
 
-<script src="../node_modules/jquery/dist/jquery.min.js"></script>
-<script src="../node_modules/popper.js/dist/umd/popper.min.js"></script>
-<script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="../css/slick-carousel/slick/slick.min.js"></script><script src="../js/common2.js"></script>
-<script src="park.js"></script>
+$.getJSON(serverApiAddr + '/json/api/weather',{
+       date: "20180929",
+       time: "0200",
+       nx: "37",
+       ny: "127"
+    }, (result) => {
+    var html = parkMainTemplate(result);
+    $('#eParkMain').html(html);
+});
+</script>
 
 
 
